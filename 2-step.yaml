@@ -1,0 +1,19 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: cms-svc
+spec:
+  hosts:
+  - cms-svc
+  http:
+  - route:
+    - destination:
+        host: cms-svc
+        subset: v1
+      weight: 50
+    - destination:
+        host: cms-svc
+        subset: v2
+      weight: 50
+---
