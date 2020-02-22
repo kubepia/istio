@@ -5,9 +5,6 @@ metadata:
   name: cms-svc
 spec:
   host: cms-svc
-  trafficPolicy:
-    loadBalancer:
-      simple: ROUND_ROBIN
   subsets:
   - name: cms-v1
     labels:
