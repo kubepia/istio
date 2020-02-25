@@ -1,25 +1,20 @@
 apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
+kind: VirtualService
 metadata:
-  name: cms # just name for resource
+  name: cms # just name for virtualservice
 spec:
-  host: cms.btv-backing.svc.cluster.local # service name. add full fqdn if outside of namespace
-  trafficPolicy:
-    connectionPool:
-      tcp:
-        maxConnections: 1
-      http:
-        http1MaxPendingRequests: 1
-        maxRequestsPerConnection: 1
-    outlierDetection:
-      consecutiveErrors: 1
-      interval: 1s
-      baseEjectionTime: 3m
-      maxEjectionPercent: 100
-  subsets:
-  - name: v1 # subset name virtual service call in destination.subset
-    labels:
-      version: v1 # label of deployment.template.labels
-  - name: v2 # subset name virtual service call in destination.subset
-    labels:
-      version: v2 # label of deployment.template.labels
+  hosts:
+  - cms.btv-backing.svc.cluster.local # service name to call
+  http:
+  - match:
+    - headers:
+        membership:
+          exact: vip
+    route:
+    - destination:
+        host: cms.btv-backing.svc.cluster.local 
+        subset: v2
+  - route:
+    - destination:
+        host: cms.btv-backing.svc.cluster.local # service name to call
+        subset: v1 # name for subset name
