@@ -1,9 +1,9 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: cms # just name for resource
+  name: cms-svc # just name for resource
 spec:
-  host: cms.btv-backing.svc.cluster.local # service name. add full fqdn if outside of namespace
+  host: cms-svc.btv-backing.svc.cluster.local # service name. add full fqdn if outside of namespace
   subsets:
   - name: v1 # subset name virtual service call in destination.subset
     labels:

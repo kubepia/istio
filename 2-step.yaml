@@ -1,17 +1,17 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: cms # just name for virtualservice
+  name: cms-svc # just name for virtualservice
 spec:
   hosts:
-  - cms.btv-backing.svc.cluster.local # service name to call
+  - cms-svc.btv-backing.svc.cluster.local # service name to call
   http:
   - route:
     - destination:
-        host: cms.btv-backing.svc.cluster.local # service name to call
+        host: cms-svc.btv-backing.svc.cluster.local # service name to call
         subset: v1 # name for subset name
       weight: 80
     - destination:
-        host: cms.btv-backing.svc.cluster.local # service name to call
+        host: cms-svc.btv-backing.svc.cluster.local # service name to call
         subset: v2 # name for subset name
       weight: 20
